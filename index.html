@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link rel="stylesheet" href="app/css/meetkeeper.css" />
+    <script data-main="app/main" type="text/javascript" src="app/libs/require/require.js"></script>
+</head> 
+<body> 
+    <!--
+        Manage Page
+    -->
+    <div id="manage-page" data-id="manage-page" data-role="page" data-theme="b">
+        <div data-role="content">
+            <h1>Manage</h1>
+            <a href="#meetssummary" data-role="button" data-icon="delete" data-iconpos="bottom">Meets</a>
+            <a href="#gymnasts" data-role="button" data-icon="delete" data-iconpos="bottom">Gymnasts</a>
+        </div>
+    </div>
+
+    <!--
+        Meet Summary
+    -->
+    <div id="meets-summary" data-id="meets-summary" data-role="page" data-theme="b">
+        <div data-role="header" data-theme="b">
+            <a class="ui-btn-left" data-icon="home" data-theme="b">Home</a>
+            <h1>Meets</h1>
+            <a href="#meet/new" class="ui-btn-right" data-icon="plus" data-theme="b">Add</a>
+        </div>
+        <div data-role="content">
+            <ul id="meet-listview" data-role="listview" data-inset="true" data-filter="true">
+            </ul>
+        </div>
+    </div>
+
+    <!--
+        New Meet
+    -->
+    <div id="newmeet" data-id="newmeet" data-role="page">
+        <div data-role="header" data-theme="b">
+            <a href="#cancel" class="ui-btn-left" data-icon="minus" data-theme="b" onclick="return false;">Cancel</a>
+            <h1>New Meet</h1>
+            <a href="#save" class="ui-btn-right" data-icon="save" data-theme="b" onclick="return false;">Save</a>
+        </div>
+
+        <div data-role="content">   
+            <form name="newmeet">
+                <div data-role="fieldcontain">
+                    <label for="name">Name</label>
+                    <input type="text" name="name"/>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="location">Location</label>
+                    <input type="text" name="location"/>
+                </div>
+                <div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+                    <label for="date" class="ui-input-text">Date</label>
+                    <input type="date" name="date" value="" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+                </div>
+            </form>         
+        </div>
+    </div>
+
+    <!--
+        Meet View
+    -->
+    <div id="meetview" data-id="meetview" data-role="page" data-theme="b">
+    </div>
+
+    <!--
+        Gymnasts View
+    -->
+    <div id="gymnasts-view" data-id="gymnasts-view" data-role="page" data-them="b">
+        <div data-role="header" data-theme="b">
+            <h1>Gymnasts</h1>
+            <a id="create-gymnast" class="ui-btn-right" data-icon="plus" data-theme="b">Add</a>
+        </div>
+        <div data-role="content">
+            <ul id="gymnasts-listview" data-role="listview" data-inset="true" data-filter="true">
+            </ul>
+        </div>  
+    </div>
+
+    <!--
+        Gymnast View
+    -->
+    <div id="gymnast-view" data-id="gymnast-view" data-role="page" data-theme="b">
+    </div>
+
+</body>
+</html>
