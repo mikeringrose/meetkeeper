@@ -1,0 +1,23 @@
+body {
+  padding: 40px 0;
+}
+
+.new-form input[type=date],
+.new-form input[type=number] {
+  width: auto;
+}
+
+.new-form .controls {
+  display: inline-block;
+}
+
+.nav i {
+  float: right;
+  margin-top: 3px;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
