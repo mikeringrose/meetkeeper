@@ -1,5 +1,7 @@
+/*  -webkit-transition: background-color 2s, margin-left */
 body {
-  padding: 40px 0;
+  padding-top: 60px;
+  padding-bottom: 40px;
 }
 
 .new-form input[type=date],
@@ -11,9 +13,21 @@ body {
   display: inline-block;
 }
 
+.new-meet {
+  float: right;
+}
+
 .nav i {
   float: right;
   margin-top: 3px;
+}
+
+.table-links tbody tr {
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
 }
 
 @media (max-width: 979px) {

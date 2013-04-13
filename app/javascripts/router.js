@@ -1,6 +1,4 @@
 App.Router.map(function() {
-  this.route("sign_in");
-  this.route("sign_up");
   this.route("about");
 
   this.resource("meets", function() {
@@ -22,9 +20,23 @@ App.Router.map(function() {
   });  
 });
 
-App.IndexRoute = Ember.Route.extend({
+App.ApplicationRoute = Ember.Route.extend({
   setupController: function(controller) {
-    controller.set('gymnasts', App.Gymnast.find());
+    if (window.App.userConnected === true) {
+      controller.setUser();
+    }
+  }
+});
+
+App.IndexRoute = Ember.Route.extend({
+  events: {
+    select: function(meet) {
+      this.transitionTo("meet", meet);
+    }
+  },
+
+  setupController: function(controller) {
+    controller.set('meets', App.Meet.find());
   }
 })
 
@@ -39,8 +51,6 @@ App.MeetsIndexRoute = Ember.Route.extend({
     return App.Meet.find();
   }
 });
-
-App.GymsNewRoute = Ember.Route.extend();
 
 App.GymsIndexRoute = Ember.Route.extend({
   model: function(params) {

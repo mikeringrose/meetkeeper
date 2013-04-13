@@ -10,7 +10,8 @@
     <script type="text/javascript" src="libs/handlebars.js"></script>
     <script type="text/javascript" src="libs/ember-1.0.0-rc.1.js"></script>
     <script type="text/javascript" src="libs/ember-data.js"></script>
-    <script type="text/javascript" src="libs/localstorage_adapter.js"></script>    
+    <script type="text/javascript" src="libs/localstorage_adapter.js"></script>
+    <script type="text/javascript" src="libs/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="app/javascripts/app.js"></script>
     <script type="text/javascript" src="app/javascripts/router.js"></script>
     <script type="text/javascript" src="app/javascripts/models/meet.js"></script>
@@ -22,40 +23,93 @@
     <script type="text/javascript" src="app/javascripts/controllers/gymnasts.js"></script>
   </head> 
   <body>
-    <script type="text/x-handlebars" data-template-name="index">
-      {{#if gymnasts}}
-        {{#linkTo meets.new class="btn btn-large btn-block btn-primary"}}New meet{{/linkTo}}
-      {{else}}
-        <div class="alert">No gyms! You can create some here: {{#linkTo gyms.new}}Create a Gym{{/linkTo}}.</div>
-      {{/if}}
-    </script>
+    <div id="fb-root"></div>
+    <!-- application -->
     <script type="text/x-handlebars">
       <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
-          <ul class="nav pull-right">
-            <li>{{#linkTo sign_in}}sign in{{/linkTo}}</li>
-            <li>{{#linkTo sign_up}}sign up{{/linkTo}}</li>
-          </ul>
+          <div class="container">
+            <a class="brand" href="#">Meet Keeper</a>
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>            
+            </button>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li>{{#linkTo meets}}Meets{{/linkTo}}</li>
+                <li>{{#linkTo gyms}}Gyms{{/linkTo}}</li>
+                <li>{{#linkTo gymnasts}}Gymnasts{{/linkTo}}</li>
+              </ul>
+              <ul class="nav pull-right">
+                <li>
+                  {{#if user}}
+                    <a href="#">{{user.name}}</a>
+                  {{else}}
+                    <a href="#" {{action signIn}}>Sign in</a>
+                  {{/if}}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <header class="page-header">
-        <div class="container">
-          <h1>Keeping my head above water.</h1>
-        </div>
-      </header>
       <div class="container">
         {{outlet}}
       </div>    
       <footer class="footer">
-        {{#linkTo about}}About{{/linkTo}}
+        &copy; 2013 gmike.
       </footer>    
     </script>      
-    <script type="text/x-handlebars" data-template-name="about"></script>
+
+    <!-- index -->
+    <script type="text/x-handlebars" data-template-name="index">
+      <div class="hero-unit hidden-phone">
+        <h1>Welcome to Meet Keeper!</h1>
+        <p>Track meets, gyms, and gymnasts.</p>
+        <p>Login or sign up to get started. Afterwards create a meet, gym, or gymnast and begin recording scores. If the meet is all ready created, add your gymnast(s) and begin capturing scores. Share the scores or view reports.</p> 
+      </div>
+      <div class="row">
+        <div class="span12">
+          <div>
+            {{#linkTo meets.new class="btn btn-primary new-meet"}}<i class="icon-plus-sign icon-white"></i> New Meet{{/linkTo}}
+            <h2>Current Meets</h2>
+          </div>
+          {{#if meets}}
+            <table class="table table-hover table-links">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>                  
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Gymnasts</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each meet in meets}}
+                <tr {{action select meet}}>
+                  <td>{{meet.date}}</td>
+                  <td>{{meet.type}}</td>                  
+                  <td>{{meet.name}}</td>
+                  <td>{{meet.location}}</td>
+                  <td>127</td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+          {{else}}
+            <p>No meets to talk about.</p>
+          {{/if}}
+        </div>
+      </div>
+    </script>
 
     <!-- meets -->
     <script type="text/x-handlebars" data-template-name="meets">
       {{outlet}}
     </script>
+
     <script type="text/x-handlebars" data-template-name="meets/index">
       <ul class="nav nav-tabs nav-stacked">
         {{#each meet in controller}}
@@ -63,18 +117,26 @@
         {{/each}}
       </ul>
     </script>
+
     <script type="text/x-handlebars" data-template-name="meets/new">
       <form id="new-meet" class="new-form">
         <fieldset>
           <legend>New Meet</legend>
           <div class="controls">
-            {{view Ember.TextField placeholder="name" valueBinding="name"}}
-            {{view Ember.TextField valueBinding="date" type="date"}}
-            <button {{action "createMeet"}} class="btn btn-large btn-primary" type="button">Create</button>
+            <div>
+              {{view Ember.TextField placeholder="name" valueBinding="name"}}
+              {{view Ember.TextField valueBinding="date" type="date"}}
+            </div>
+            <div>
+              {{view Ember.Select contentBinding="App.Meet.types" valueBinding="type" prompt="select type..."}}
+              {{view Ember.TextField placeholder="location" valueBinding="location"}}
+            </div>
+            <button {{action "createMeet"}} class="btn btn-primary" type="button">Create</button>
           </div>
         </fieldset>
       </form>
     </script>
+
     <script type="text/x-handlebars" data-template-name="meet">
       <div>{{name}}</div>
       <div>{{level}}</div>
